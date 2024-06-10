@@ -1,12 +1,13 @@
 package com.example.demo.entity;
 
 import com.example.demo.Validator.annotation.ValidCategoryId;
+import com.example.demo.Validator.annotation.ValidUserId;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.Generated;
 
 @Data
 @Entity
@@ -15,7 +16,6 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "title")
     @NotEmpty(message = "Title must not be empty")
     @Size(max = 50, min = 1, message = "Title must be less than 50 characters")
@@ -30,4 +30,10 @@ public class Book {
     @JoinColumn(name = "category_id")
     @ValidCategoryId
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ValidUserId
+    private User user;
+
 }
