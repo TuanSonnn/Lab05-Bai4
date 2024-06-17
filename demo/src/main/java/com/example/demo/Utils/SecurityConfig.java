@@ -41,12 +41,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/css/**", "/js/**", "/", "/register", "/error")
                         .permitAll()
-                        .requestMatchers( "/books/edit", "/books/delete")
+                        .requestMatchers( "/books/edit", "/books/delete", "/books/add")
                         .hasAnyAuthority("ADMIN")
-                        .requestMatchers("/books", "/books/add")
+                        .requestMatchers("/books")
                         .hasAnyAuthority("ADMIN", "USER")
-                        .requestMatchers("/api/**")
-                        .hasAnyAuthority("ADMIN", "USER")
+
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")
